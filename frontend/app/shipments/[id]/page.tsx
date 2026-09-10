@@ -250,7 +250,7 @@ export default function ShipmentDetailPage({ params }: { params: Promise<{ id: s
             </button>
             <button
               onClick={() => router.push(`/simulator?shipment=${id}`)}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-600 bg-primary text-white rounded-md hover:bg-primary-600 transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-600 bg-[#1C1C1A] text-white rounded-md hover:bg-black transition-colors shadow-sm"
               style={{ fontWeight: 600 }}
             >
               <FlaskConical size={16} />
@@ -837,7 +837,7 @@ export default function ShipmentDetailPage({ params }: { params: Promise<{ id: s
           <div className="card p-4 space-y-2">
             <button
               onClick={() => router.push(`/simulator?shipment=${id}`)}
-              className="w-full py-2.5 bg-primary hover:bg-primary-600 text-white font-600 text-sm rounded-md shadow-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-[#1C1C1A] hover:bg-black text-white font-600 text-sm rounded-md shadow-sm transition-colors flex items-center justify-center gap-2"
               style={{ fontWeight: 600 }}
             >
               <FlaskConical size={16} /> Open What-If Simulator

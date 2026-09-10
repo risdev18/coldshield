@@ -185,58 +185,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="text-text font-600 text-[11px] tracking-wide uppercase">LIVE TELEMETRY</span>
             </div>
 
-            {/* Backend status popover trigger */}
-            <div className="relative">
-              <button
-                onClick={() => setModelOpen(!modelOpen)}
-                className={cn(
-                  "flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium border hover:opacity-80 transition-opacity",
-                  backendAvailable
-                    ? "bg-safe/10 text-safe border-safe/30"
-                    : "bg-warning/10 text-warning border-warning/30"
-                )}
-                title={backendAvailable ? "ML model connected" : "ML model unavailable — run FastAPI backend"}
-              >
-                <Thermometer size={11} />
-                {backendAvailable ? "Model OK" : "Model Offline"}
-              </button>
-              
-              {modelOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setModelOpen(false)} />
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-border rounded-lg shadow-panel z-50 overflow-hidden">
-                    <div className="px-3 py-2 bg-surface border-b border-border text-[10px] font-800 text-text uppercase tracking-wider">
-                      Model Health
-                    </div>
-                    <div className="p-3 space-y-2 text-xs">
-                      <div className="flex justify-between border-b border-border pb-1">
-                        <span className="text-text-muted">Status</span>
-                        <span className={backendAvailable ? "text-safe font-600" : "text-warning font-600"}>
-                          {backendAvailable ? "Operational" : "Offline"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b border-border pb-1">
-                        <span className="text-text-muted">Last inference</span>
-                        <span className="text-text font-500">12 sec ago</span>
-                      </div>
-                      <div className="flex justify-between border-b border-border pb-1">
-                        <span className="text-text-muted">Drift</span>
-                        <span className="text-safe font-500">Normal</span>
-                      </div>
-                      <div className="flex justify-between border-b border-border pb-1">
-                        <span className="text-text-muted">Telemetry</span>
-                        <span className="text-safe font-500 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-safe animate-pulse" /> Connected
-                        </span>
-                      </div>
-                      <div className="pt-1 flex justify-between text-[10px] text-text-light">
-                        <span>Model version</span>
-                        <span className="font-mono">v1.4</span>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
+            {/* AI Active Badge */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-700 bg-primary/10 text-primary border border-primary/20 font-mono">
+              <Thermometer size={12} className="text-primary" />
+              <span>AI ENGINES ACTIVE</span>
             </div>
 
             {/* Notifications */}
