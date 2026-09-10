@@ -2,7 +2,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { 
-  FlaskConical, ArrowRight, Play, CheckCircle2, ChevronDown, Activity, ArrowLeft 
+  FlaskConical, ArrowRight, Play, CheckCircle2, ChevronDown, Activity, ArrowLeft, Sparkles, AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";
 import { useAppStore } from "@/store/appStore";
@@ -381,6 +381,8 @@ function SimulatorContent() {
                     </div>
                   </motion.div>
                 )}
+              </div>
+
               {/* Feature 5: Counterfactual Impact Card */}
               {shipment && (
                 <div className="card p-5 border-2 border-primary/40 bg-[#FAF7F2] space-y-3">
