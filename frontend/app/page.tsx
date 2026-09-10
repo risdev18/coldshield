@@ -31,37 +31,44 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 lg:px-12 flex flex-col items-center text-center max-w-5xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF5E1] border border-[#C2DB8D] text-[#4A7018] text-xs font-700 mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#639922] animate-pulse" />
-          Platform Demo
-        </div>
+      <section className="relative pt-40 pb-20 px-6 lg:px-12 flex flex-col items-center text-center w-full min-h-[85vh] justify-center border-b border-[#E0E0DB]">
+        {/* Background Image & Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-15"
+          style={{ backgroundImage: "url('/truck-bg.jpg')" }}
+        />
         
-        <motion.h1 
-          className="text-5xl md:text-7xl font-800 tracking-tight leading-[1.1] mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        >
-          Zero Spoilage.<br />
-          <motion.span 
-            className="text-transparent bg-clip-text"
-            initial={{ backgroundImage: "linear-gradient(to right, #EF9F27, #EF9F27)" }}
-            animate={{ backgroundImage: "linear-gradient(to right, #EF9F27, #1D9E75)" }}
-            transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.8 }}
+        <div className="relative z-10 flex flex-col items-center max-w-5xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF5E1]/90 backdrop-blur-sm border border-[#C2DB8D] text-[#4A7018] text-xs font-700 mb-8 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#639922] animate-pulse" />
+            Platform Demo
+          </div>
+          
+          <motion.h1 
+            className="text-5xl md:text-7xl font-800 tracking-tight leading-[1.1] mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            Predictive Intelligence.
-          </motion.span>
-        </motion.h1>
-        
-        <motion.p 
-          className="text-lg md:text-xl text-[#6B6B65] max-w-2xl mb-10 leading-relaxed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          Stop reacting to temperature excursions. ChillShield AI predicts cold-chain failures before they happen using real-time IoT telematics and Gradient Boosting ML.
-        </motion.p>
+            Zero Spoilage.<br />
+            <motion.span 
+              className="text-transparent bg-clip-text"
+              initial={{ backgroundImage: "linear-gradient(to right, #EF9F27, #EF9F27)" }}
+              animate={{ backgroundImage: "linear-gradient(to right, #EF9F27, #1D9E75)" }}
+              transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.8 }}
+            >
+              Predictive Intelligence.
+            </motion.span>
+          </motion.h1>
+          
+          <motion.p 
+            className="text-lg md:text-xl text-[#1C1C1A] max-w-2xl mb-10 leading-relaxed font-500 drop-shadow-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Stop reacting to temperature excursions. ChillShield AI predicts cold-chain failures before they happen using real-time IoT telematics and Gradient Boosting ML.
+          </motion.p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <Link href="/overview" className="px-8 py-3.5 rounded-lg bg-[#1C1C1A] text-white font-600 text-base flex items-center gap-2 hover:bg-[#2A2A28] transition-all hover:-translate-y-0.5 shadow-lg">
@@ -89,6 +96,7 @@ export default function LandingPage() {
                 <p className="text-[#6B6B65]">Powered by Zustand & Real ML</p>
               </div>
            </div>
+        </div>
         </div>
       </section>
 

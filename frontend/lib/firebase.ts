@@ -6,7 +6,7 @@ import { getAnalytics, isSupported } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCILyQUYaln5RhVg0CWs34xw5Xff8onaTQ",
+  apiKey: "AIzaSyDfdisbwbElnvOd_0rjlE-zcSxzuqauqMA",
   authDomain: "illshield-a2951.firebaseapp.com",
   projectId: "illshield-a2951",
   storageBucket: "illshield-a2951.firebasestorage.app",
