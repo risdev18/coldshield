@@ -1,0 +1,41 @@
+{
+  "dataset_name": "Cold-Chain-Transportation-Strawberry",
+  "dataset_file": "ChillShield_training_W60.csv",
+  "target": "y_next_120_R2",
+  "model_type": "Gradient Boosting",
+  "feature_names": [
+    "W60_T_mean",
+    "W60_T_std",
+    "W60_T_range",
+    "W60_delta",
+    "W60_slope",
+    "W60_hot_ratio_mean",
+    "W60_over_auc_mean",
+    "W60_over_dur_mean",
+    "W60_spatial_range_mean",
+    "W60_spatial_std_mean",
+    "W60_active_ratio_mean"
+  ],
+  "training_rows": 13008,
+  "unique_shipments": 6,
+  "validation_strategy": "Leave-One-Shipment-Out",
+  "metrics": {
+    "Accuracy": 0.9627776298165701,
+    "Precision": 0.9696193441130335,
+    "Recall": 0.9835912027152817,
+    "F1": 0.976329717714118,
+    "ROC-AUC": 0.9922694677811698,
+    "Balanced Accuracy": 0.9374232535884511,
+    "PR-AUC": 0.9977365564791847
+  },
+  "class_distribution": {
+    "1.0": 10675,
+    "0.0": 2333
+  },
+  "limitations": [
+    "There are only 6 unique shipments in the dataset.",
+    "Do not claim the model has been validated across thousands of independent shipments.",
+    "Do not claim production accuracy, industry validation, guaranteed spoilage prevention, or clinically validated performance.",
+    "This is a prototype research/hackathon model."
+  ]
+}
