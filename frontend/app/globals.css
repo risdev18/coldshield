@@ -2,18 +2,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #FAFAF8;
-  --surface: #F2F2EF;
-  --surface-raised: #EAEAE7;
-  --border: #E0E0DB;
-  --primary: #EF9F27;
+  --bg: #F5F2EA;
+  --surface: #EBE5D8;
+  --surface-raised: #E1DBCB;
+  --border: #D5CDBE;
+  --primary: #E69112;
   --teal: #1D9E75;
-  --safe: #639922;
-  --warning: #F59E0B;
-  --critical: #E24B4A;
-  --text: #1C1C1A;
-  --muted: #6B6B65;
-  --light: #9B9B95;
+  --safe: #5D931E;
+  --warning: #E08D03;
+  --critical: #DC3838;
+  --text: #21201D;
+  --muted: #6E685C;
+  --light: #9B9486;
 }
 
 * {
@@ -49,31 +49,31 @@ body {
 
 /* Cards */
 .card {
-  background: white;
+  background: #FAF7F2;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(50, 40, 20, 0.04);
 }
 
 .card-surface {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 /* Risk badges */
-.badge-low { background: #EEF5E1; color: #4A7018; border: 1px solid #C2DB8D; }
-.badge-moderate { background: #FEF8E7; color: #A05C00; border: 1px solid #FBD98A; }
-.badge-high { background: #FFF3E7; color: #C04A00; border: 1px solid #FFBE8A; }
-.badge-critical { background: #FDEEEE; color: #C01A1A; border: 1px solid #F5AAAA; }
+.badge-low { background: #E9F2DA; color: #3E6312; border: 1px solid #B8D68A; }
+.badge-moderate { background: #FDF3D9; color: #9E5B00; border: 1px solid #F5D384; }
+.badge-high { background: #FDE8D7; color: #B84700; border: 1px solid #F8B482; }
+.badge-critical { background: #FCE6E6; color: #B81818; border: 1px solid #F29E9E; }
 
 /* Sidebar */
 .sidebar-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 8.5px 12px;
+  border-radius: 8px;
   font-size: 13.5px;
   font-weight: 500;
   color: var(--muted);
@@ -87,9 +87,10 @@ body {
   color: var(--text);
 }
 .sidebar-item.active {
-  background: #FEF8ED;
-  color: var(--primary);
-  border: 1px solid #FBE0AB;
+  background: #F5E9D0;
+  color: #D47A00;
+  border: 1px solid #E8D2A3;
+  font-weight: 600;
 }
 
 /* Animations */

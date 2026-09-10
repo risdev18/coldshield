@@ -92,28 +92,32 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* ── Sidebar ── */}
       <aside
         className={cn(
-          "flex flex-col border-r border-border bg-white transition-all duration-200 ease-in-out flex-shrink-0",
+          "flex flex-col border-r border-border bg-[#FAF7F2] transition-all duration-200 ease-in-out flex-shrink-0",
           collapsed ? "w-14" : "w-56"
         )}
         style={{ zIndex: 30 }}
       >
-        {/* Logo */}
-        <div className={cn("flex items-center gap-2.5 px-3 py-4 border-b border-border", collapsed && "justify-center px-2")}>
-          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary flex-shrink-0">
-            <ShieldCheck size={16} className="text-white" />
+        {/* Shield Logo */}
+        <div className={cn("flex items-center gap-3 px-3.5 py-4 border-b border-border bg-[#F5F2EA]/80", collapsed && "justify-center px-2")}>
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-[#C87300] via-[#E69112] to-[#F5AE40] shadow-sm flex-shrink-0">
+            <ShieldCheck size={20} className="text-white drop-shadow-xs" />
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#1D9E75] border-2 border-[#FAF7F2]" />
           </div>
           {!collapsed && (
             <div>
-              <div className="text-sm font-700 text-text leading-tight" style={{ fontWeight: 700 }}>
+              <div className="text-base font-800 text-text tracking-tight flex items-center gap-1.5" style={{ fontWeight: 800 }}>
                 ChillShield
+                <span className="text-[9px] font-800 px-1.5 py-0.5 rounded bg-[#E69112]/15 text-[#C87300] border border-[#E69112]/30 uppercase tracking-widest">
+                  AI
+                </span>
               </div>
-              <div className="text-[10px] text-text-muted font-medium tracking-wide uppercase">AI</div>
+              <div className="text-[10px] text-text-muted font-600 tracking-wide uppercase">Cold-Chain Control</div>
             </div>
           )}
         </div>
 
         {/* Nav items */}
-        <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
+        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
           {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
@@ -131,7 +135,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Bottom nav */}
-        <div className="border-t border-border py-2 px-2 space-y-0.5">
+        <div className="border-t border-border py-2 px-2 space-y-1">
           {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
             const active = pathname === href;
             return (
@@ -162,23 +166,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* ── Main area ── */}
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         {/* Top bar */}
-        <header className="flex items-center gap-3 px-4 py-2.5 border-b border-border bg-white flex-shrink-0" style={{ height: 52 }}>
+        <header className="flex items-center gap-3 px-5 py-2.5 border-b border-border bg-[#FAF7F2]/90 backdrop-blur-md flex-shrink-0" style={{ height: 56 }}>
           {/* Search */}
           <button
             onClick={() => setSearchOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border bg-surface text-text-muted text-sm hover:border-primary/50 transition-colors flex-1 max-w-sm"
+            className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg border border-border bg-surface/70 text-text-muted text-sm hover:border-primary/60 hover:bg-surface transition-all flex-1 max-w-sm shadow-2xs"
             aria-label="Search shipments (Ctrl+K)"
           >
-            <Search size={14} />
-            <span className="text-xs">Search shipments, cargo, routes...</span>
-            <kbd className="ml-auto text-[10px] bg-surface-raised px-1.5 py-0.5 rounded border border-border font-mono">⌘K</kbd>
+            <Search size={15} className="text-text-muted" />
+            <span className="text-xs font-500">Search shipments, cargo, routes...</span>
+            <kbd className="ml-auto text-[10px] bg-surface-raised px-1.5 py-0.5 rounded border border-border font-mono text-text font-600">⌘K</kbd>
           </button>
 
-          <div className="flex items-center gap-1 ml-auto">
+          <div className="flex items-center gap-2 ml-auto">
             {/* Live indicator */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface text-xs font-medium border border-border">
-              <span className="w-1.5 h-1.5 rounded-full bg-safe animate-pulse" />
-              <span className="text-text-muted">DEMO / SIMULATION</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface text-xs font-600 border border-border">
+              <span className="w-2 h-2 rounded-full bg-safe animate-pulse" />
+              <span className="text-text font-600 text-[11px] tracking-wide uppercase">LIVE TELEMETRY</span>
             </div>
 
             {/* Backend status popover trigger */}

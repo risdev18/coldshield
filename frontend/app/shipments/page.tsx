@@ -157,7 +157,7 @@ export default function ShipmentsPage() {
           <select
             value={filterRisk}
             onChange={(e) => setFilterRisk(e.target.value as RiskBand | "ALL")}
-            className="text-xs border border-border rounded-md px-2 py-1.5 bg-white text-text outline-none"
+            className="text-xs border border-border rounded-md px-2.5 py-1.5 bg-surface text-text outline-none font-500 hover:border-primary/50 transition-colors"
             aria-label="Filter by risk"
           >
             <option value="ALL">All Risk Levels</option>
@@ -169,7 +169,7 @@ export default function ShipmentsPage() {
           <select
             value={filterCargo}
             onChange={(e) => setFilterCargo(e.target.value as CargoType | "ALL")}
-            className="text-xs border border-border rounded-md px-2 py-1.5 bg-white text-text outline-none"
+            className="text-xs border border-border rounded-md px-2.5 py-1.5 bg-surface text-text outline-none font-500 hover:border-primary/50 transition-colors"
             aria-label="Filter by cargo"
           >
             <option value="ALL">All Cargo Types</option>
@@ -182,7 +182,7 @@ export default function ShipmentsPage() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as ShipmentStatus | "ALL")}
-            className="text-xs border border-border rounded-md px-2 py-1.5 bg-white text-text outline-none"
+            className="text-xs border border-border rounded-md px-2.5 py-1.5 bg-surface text-text outline-none font-500 hover:border-primary/50 transition-colors"
             aria-label="Filter by status"
           >
             <option value="ALL">All Statuses</option>
