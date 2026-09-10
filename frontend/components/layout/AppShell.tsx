@@ -6,13 +6,14 @@ import {
   LayoutDashboard, Package, Map, AlertTriangle, BarChart3,
   Settings, User, Bell, Search, ChevronLeft, ChevronRight,
   Thermometer, Zap, FlaskConical, Activity, Boxes, X,
-  ShieldCheck, CheckCircle2, Clock, TrendingUp,
+  ShieldCheck, CheckCircle2, Clock, TrendingUp, Navigation,
 } from "lucide-react";
 import { useAppStore, selectUnreadCount } from "@/store/appStore";
 import { cn, formatDateTime, getRiskColor } from "@/lib/utils";
 import { checkHealth } from "@/services/modelService";
 import DemoModeBar from "@/components/demo/DemoModeBar";
 import BackendStatusBar from "@/components/ui/BackendStatusBar";
+import ColdStorageFinderModal from "@/components/facilities/ColdStorageFinderModal";
 
 const NAV_ITEMS = [
   { href: "/overview", label: "Overview", icon: LayoutDashboard },
@@ -36,6 +37,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [coldStorageOpen, setColdStorageOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const { notifications, markNotificationsRead, shipments, backendAvailable, setBackendAvailable } =
@@ -184,6 +186,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="w-2 h-2 rounded-full bg-safe animate-pulse" />
               <span className="text-text font-600 text-[11px] tracking-wide uppercase">LIVE TELEMETRY</span>
             </div>
+
+            {/* Cold Storage Finder Button */}
+            <button
+              onClick={() => setColdStorageOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-700 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition-colors"
+              title="Find nearest cold storage using Driver GPS or shipment position"
+            >
+              <Navigation size={12} className="text-sky-500" />
+              <span>COLD STORAGE FINDER</span>
+            </button>
 
             {/* AI Active Badge */}
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-700 bg-primary/10 text-primary border border-primary/20 font-mono">
@@ -361,6 +373,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
+      )}
+
+      {/* ── Cold Storage Finder Modal ── */}
+      {coldStorageOpen && (
+        <ColdStorageFinderModal onClose={() => setColdStorageOpen(false)} />
       )}
     </div>
   );

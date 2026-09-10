@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { Shipment } from "@/lib/types";
 import { getRiskBand, getRiskColor } from "@/lib/utils";
+import { CURATED_FACILITIES } from "@/lib/facilities";
 
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css";
@@ -62,7 +63,46 @@ export default function LiveMap({ shipments, selectedId, height = 380 }: Props) 
     markersRef.current.forEach((m) => (m as ReturnType<typeof L.marker>).remove());
     markersRef.current = [];
 
-    // Add shipment markers
+    // 1. Add Cold Storage Facility Markers (Blue/Cyan snowflake icons)
+    CURATED_FACILITIES.forEach((fac) => {
+      const facIcon = L.divIcon({
+        className: "",
+        html: `<div style="
+          width:24px;height:24px;border-radius:6px;
+          background:#0284C7;
+          border:2px solid white;
+          box-shadow:0 2px 6px rgba(0,0,0,0.3);
+          display:flex;align-items:center;justify-content:center;
+          cursor:pointer;
+          color:white;font-size:12px;font-weight:bold;
+        " title="${fac.name}">
+          ❄️
+        </div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+
+      const facMarker = L.marker([fac.lat, fac.lng], { icon: facIcon });
+      const googleUrl = `https://www.google.com/maps/dir/?api=1&destination=${fac.lat},${fac.lng}`;
+      const popupHtml = `
+        <div style="font-family:Inter,sans-serif;min-width:200px;font-size:12px;">
+          <div style="font-weight:700;color:#0284C7;margin-bottom:4px;">❄️ ${fac.name}</div>
+          <div style="color:#6B6B65;margin-bottom:6px;">${fac.address}, ${fac.city}</div>
+          <div style="font-size:11px;color:#1C1C1A;margin-bottom:6px;">
+            <div><strong>Temp:</strong> ${fac.tempRange}</div>
+            <div><strong>Capacity:</strong> ${fac.availableCapacity} / ${fac.capacityPallets} pallets</div>
+            <div><strong>Phone:</strong> ${fac.phone}</div>
+          </div>
+          <a href="${googleUrl}" target="_blank" style="display:block;text-align:center;padding:4px 8px;background:#0284C7;color:white;border-radius:4px;font-weight:600;font-size:11px;text-decoration:none;">Open in Google Maps</a>
+        </div>
+      `;
+
+      facMarker.bindPopup(popupHtml, { maxWidth: 240 });
+      facMarker.addTo(map);
+      markersRef.current.push(facMarker);
+    });
+
+    // 2. Add shipment markers
     shipments
       .filter((s) => s.status !== "DELIVERED")
       .forEach((shipment) => {
@@ -171,19 +211,19 @@ export default function LiveMap({ shipments, selectedId, height = 380 }: Props) 
         flexDirection: "column",
         gap: 4,
       }}>
-        <div style={{ fontWeight: 700, color: "#1C1C1A", marginBottom: 2 }}>Risk Level</div>
+        <div style={{ fontWeight: 700, color: "#1C1C1A", marginBottom: 2 }}>Map Legend</div>
         {[
-          { label: "Low (0–29)", color: "#639922" },
-          { label: "Moderate (30–59)", color: "#F59E0B" },
-          { label: "High (60–79)", color: "#F97316" },
-          { label: "Critical (80–100)", color: "#E24B4A" },
+          { label: "Low Risk (0–29)", color: "#639922" },
+          { label: "Moderate Risk (30–59)", color: "#F59E0B" },
+          { label: "High Risk (60–79)", color: "#F97316" },
+          { label: "Critical Risk (80–100)", color: "#E24B4A" },
+          { label: "❄️ Cold Storage Facility", color: "#0284C7" },
         ].map(({ label, color }) => (
           <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, color: "#6B6B65" }}>
             <span style={{ width: 12, height: 12, borderRadius: "50%", background: color, flexShrink: 0 }} />
             {label}
           </div>
         ))}
-        <div style={{ color: "#9B9B95", marginTop: 4, fontStyle: "italic" }}>Simulated positions — DEMO</div>
       </div>
     </div>
   );
