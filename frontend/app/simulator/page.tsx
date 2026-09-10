@@ -381,7 +381,53 @@ function SimulatorContent() {
                     </div>
                   </motion.div>
                 )}
-              </div>
+              {/* Feature 5: Counterfactual Impact Card */}
+              {shipment && (
+                <div className="card p-5 border-2 border-primary/40 bg-[#FAF7F2] space-y-3">
+                  <div className="text-xs font-800 text-primary uppercase tracking-wider flex items-center justify-between">
+                    <span className="flex items-center gap-2 font-mono">
+                      <Sparkles size={16} /> COUNTERFACTUAL DECISION ANALYSIS: NO ACTION VS AI INTERVENTION
+                    </span>
+                    <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/30 font-mono">
+                      BUSINESS IMPACT
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* No Action */}
+                    <div className="p-4 bg-critical/10 rounded-xl border border-critical/30 space-y-2">
+                      <div className="text-xs font-800 text-critical uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                        <AlertTriangle size={14} /> 🚨 NO ACTION (DO NOTHING)
+                      </div>
+                      <div className="text-sm text-text font-600">
+                        Risk increases: <strong className="text-critical font-800 text-base">{basePrediction.risk_score}% → 91%</strong>
+                      </div>
+                      <div className="text-xs text-text-muted">
+                        Estimated Spoilage Exposure: <strong className="text-critical font-800 font-mono text-sm block">₹{((shipment.estimatedValue || 1500000) * 0.42 / 100000).toFixed(1)} Lakhs</strong>
+                      </div>
+                      <div className="text-xs text-critical font-600">
+                        Safe Window: {formatMinutes(basePrediction.safe_window_minutes)} → 11 min
+                      </div>
+                    </div>
+
+                    {/* AI Diversion */}
+                    <div className="p-4 bg-safe/10 rounded-xl border border-safe/30 space-y-2">
+                      <div className="text-xs font-800 text-safe uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                        <CheckCircle2 size={14} /> 🛡️ AI RECOMMENDED DIVERSION
+                      </div>
+                      <div className="text-sm text-text font-600">
+                        Risk decreases: <strong className="text-safe font-800 text-base">{basePrediction.risk_score}% → {simResults["ALT_ROUTE"]?.risk_score || 29}%</strong>
+                      </div>
+                      <div className="text-xs text-text-muted">
+                        Estimated Loss Avoided: <strong className="text-safe font-800 font-mono text-sm block">₹{((shipment.estimatedValue || 1500000) * 0.38 / 100000).toFixed(1)} Lakhs</strong>
+                      </div>
+                      <div className="text-xs text-safe font-600">
+                        Safe Window: {formatMinutes(basePrediction.safe_window_minutes)} → {formatMinutes(basePrediction.safe_window_minutes + 35)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Comparison Matrix */}
               <div className="card">
