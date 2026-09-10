@@ -3,12 +3,12 @@ import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ArrowLeft, Activity, MapPin, Package, Zap, FlaskConical, AlertTriangle,
+  ArrowLeft, ArrowRight, Activity, MapPin, Package, Zap, FlaskConical, AlertTriangle,
   CheckCircle2, Clock, Map, MoreVertical, TrendingUp, RefreshCw, Thermometer
 } from "lucide-react";
 import { toast } from "sonner";
 import { useAppStore } from "@/store/appStore";
-import { predictRisk, shipmentToFeatures, simulateIntervention } from "@/services/modelService";
+import { predictRisk, shipmentToFeatures, simulateIntervention, checkHealth } from "@/services/modelService";
 import {
   cn, formatETA, formatMinutes, formatTime, getRiskBand, getRiskColor,
   getRiskBgColor, getRiskTextColor, getRiskBorderColor, getStatusColor,
@@ -513,7 +513,7 @@ export default function ShipmentDetailPage({ params }: { params: Promise<{ id: s
                             </div>
                             <div className="font-800 text-lg text-text mb-1 flex items-center gap-1">
                               Divert to {facilitiesData[0].name}
-                              <CheckCircle2 size={14} className="text-safe" title="Verified Facility Location" />
+                              <span title="Verified Facility Location"><CheckCircle2 size={14} className="text-safe" /></span>
                             </div>
                             <div className="text-sm text-text-muted mb-4 font-500">
                               {facilitiesData[0].estimatedTimeMin} min · {facilitiesData[0].distanceKm.toFixed(1)} km · Capacity available

@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Map, Truck, Navigation, Route } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAppStore } from "@/store/appStore";
@@ -7,6 +8,16 @@ const LiveMap = dynamic(() => import("@/components/map/LiveMap"), { ssr: false }
 
 export default function FleetPage() {
   const { shipments } = useAppStore();
+  const [mapHeight, setMapHeight] = useState<number>(600);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setMapHeight(window.innerHeight - 120);
+      const handleResize = () => setMapHeight(window.innerHeight - 120);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
   
   return (
     <div className="flex flex-col h-full bg-surface">
@@ -25,7 +36,7 @@ export default function FleetPage() {
         </div>
       </div>
       <div className="flex-1 relative">
-        <LiveMap shipments={shipments} height={window.innerHeight - 120} />
+        <LiveMap shipments={shipments} height={mapHeight} />
       </div>
     </div>
   );

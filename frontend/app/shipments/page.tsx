@@ -9,8 +9,6 @@ import AddShipmentModal from "@/components/shipments/AddShipmentModal";
 import { useAppStore } from "@/store/appStore";
 import { cn, formatETA, formatMinutes, getRiskBand, getRiskColor, getRiskBgColor, getRiskTextColor, getRiskBorderColor, getCargoLabel, getStatusColor, getStatusLabel } from "@/lib/utils";
 import type { Shipment, RiskBand, CargoType, ShipmentStatus } from "@/lib/types";
-import { acknowledgeAlert } from "@/store/appStore";
-
 type SortKey = "id" | "temperature" | "risk" | "eta" | "delay";
 type SortDir = "asc" | "desc";
 

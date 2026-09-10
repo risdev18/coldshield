@@ -324,7 +324,7 @@ export default function OverviewPage() {
               <YAxis tick={{ fontSize: 10, fill: "#9B9B95" }} domain={[0, 100]} />
               <Tooltip
                 contentStyle={{ fontSize: 12, border: "1px solid #E0E0DB", borderRadius: 6 }}
-                formatter={(v: number) => [`${v}%`, "Avg Risk"]}
+                formatter={(v: any) => [`${v}%`, "Avg Risk"]}
               />
               <Area type="monotone" dataKey="risk" stroke="#EF9F27" strokeWidth={2} fill="url(#riskGrad)" />
             </AreaChart>

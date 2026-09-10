@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useAppStore } from "@/store/appStore";
 import { simulateIntervention, shipmentToFeatures } from "@/services/modelService";
 import { cn, formatMinutes, getRiskBand, getRiskColor, getRiskBgColor, getRiskTextColor } from "@/lib/utils";
-import type { Shipment, ShipmentFeatures, PredictionResult } from "@/lib/types";
+import type { Shipment, PredictionResult } from "@/lib/types";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -68,14 +68,14 @@ function SimulatorContent() {
     const timer = setTimeout(async () => {
       try {
         const origFeatures = shipmentToFeatures(shipment);
-        const customFeatures: ShipmentFeatures = {
-          ...origFeatures,
+        const customFeatures = shipmentToFeatures({
+          ...shipment,
           temperature: temp,
-          delay_minutes: delay,
+          delayMinutes: delay,
           humidity,
-          traffic_level: traffic,
-          refrigeration_condition: refrigeration
-        };
+          trafficLevel: traffic,
+          refrigerationCondition: refrigeration
+        });
         const simCustom = await simulateIntervention(origFeatures, customFeatures);
         setCustomResult(simCustom.simulated);
       } catch (e) {
@@ -83,7 +83,7 @@ function SimulatorContent() {
       }
     }, 400); // 400ms debounce
     return () => clearTimeout(timer);
-  }, [temp, delay, traffic, refrigeration, shipment, backendAvailable]);
+  }, [temp, delay, humidity, traffic, refrigeration, shipment, backendAvailable, basePrediction]);
 
   const handleRunSimulations = async (shipmentToRun: Shipment = shipment!) => {
     if (!shipmentToRun) return;
@@ -104,27 +104,36 @@ function SimulatorContent() {
       setBasePrediction(simNoAction.original); // Update base just in case
       
       // Run preset 2: Reduce delay
-      const simDelay = await simulateIntervention(origFeatures, { ...origFeatures, delay_minutes: Math.max(0, origFeatures.delay_minutes * 0.5) });
+      const simDelay = await simulateIntervention(
+        origFeatures,
+        shipmentToFeatures({ ...shipmentToRun, delayMinutes: Math.max(0, shipmentToRun.delayMinutes * 0.5) })
+      );
       results["REDUCE_DELAY"] = simDelay.simulated;
       
       // Run preset 3: Restore Temp
-      const targetTemp = shipment.safeRangeMax - 1; // 1 degree below max
-      const simTemp = await simulateIntervention(origFeatures, { ...origFeatures, temperature: targetTemp, refrigeration_condition: "good" });
+      const targetTemp = shipmentToRun.safeRangeMax - 1; // 1 degree below max
+      const simTemp = await simulateIntervention(
+        origFeatures,
+        shipmentToFeatures({ ...shipmentToRun, temperature: targetTemp, refrigerationCondition: "good" })
+      );
       results["RESTORE_TEMP"] = simTemp.simulated;
       
       // Run preset 4: Alt Route
-      const simRoute = await simulateIntervention(origFeatures, { ...origFeatures, traffic_level: "low", route_risk: Math.max(0.1, origFeatures.route_risk - 0.2) });
+      const simRoute = await simulateIntervention(
+        origFeatures,
+        shipmentToFeatures({ ...shipmentToRun, trafficLevel: "low", routeRisk: Math.max(0.1, shipmentToRun.routeRisk - 0.2) })
+      );
       results["ALT_ROUTE"] = simRoute.simulated;
       
       // Run custom initially too
-      const customFeatures: ShipmentFeatures = {
-        ...origFeatures,
+      const customFeatures = shipmentToFeatures({
+        ...shipmentToRun,
         temperature: temp,
-        delay_minutes: delay,
+        delayMinutes: delay,
         humidity,
-        traffic_level: traffic,
-        refrigeration_condition: refrigeration
-      };
+        trafficLevel: traffic,
+        refrigerationCondition: refrigeration
+      });
       const simCustom = await simulateIntervention(origFeatures, customFeatures);
       
       setSimResults(results);
